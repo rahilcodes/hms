@@ -111,5 +111,73 @@ class AdditionalPagesSeeder extends Seeder
                 ]
             ]
         );
+
+        // 4. About Us
+        Page::updateOrCreate(
+            ['slug' => 'about'],
+            [
+                'title' => 'Our Story',
+                'is_system' => true,
+                'is_active' => true,
+                'meta_description' => 'Learn more about our heritage and hospitality.',
+                'content' => [
+                    [
+                        'type' => 'hero',
+                        'data' => [
+                            'heading' => 'A Legacy of Excellence',
+                            'subheading' => 'Providing world-class hospitality since 1995.',
+                        ]
+                    ],
+                    [
+                        'type' => 'text_image',
+                        'data' => [
+                            'title' => 'Our Mission',
+                            'content' => '<p>We strive to provide our guests with an unforgettable experience through personalized service and attention to detail.</p>',
+                            'align' => 'right'
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        // 5. Contact
+        Page::updateOrCreate(
+            ['slug' => 'contact'],
+            [
+                'title' => 'Get in Touch',
+                'is_system' => true,
+                'is_active' => true,
+                'meta_description' => 'Contact details and location.',
+                'content' => [
+                    [
+                        'type' => 'hero',
+                        'data' => [
+                            'heading' => 'We are here for you',
+                            'subheading' => 'Reach out via phone, email, or visit us in person.',
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        // 6. Dining
+        Page::updateOrCreate(
+            ['slug' => 'dining'],
+            [
+                'title' => 'Exquisite Dining',
+                'is_system' => true,
+                'is_active' => true,
+                'meta_description' => 'Experience culinary delight at our properties.',
+                'content' => [
+                    [
+                        'type' => 'hero',
+                        'data' => [
+                            'heading' => 'A Taste of Paradise',
+                            'subheading' => 'Authentic flavors and fine dining experiences.',
+                        ]
+                    ]
+                ]
+            ]
+        );
     }
 }
