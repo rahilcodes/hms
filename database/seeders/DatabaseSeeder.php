@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SiteSettingsSeeder::class,
             HotelDataSeeder::class,
+            TitaniumSeeder::class,
+            FeatureSeeder::class,
+            AdditionalPagesSeeder::class,
             PeopleSeeder::class,
             BookingSeeder::class,
             OperationsSeeder::class,
