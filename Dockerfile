@@ -40,9 +40,12 @@ COPY --from=frontend /app/public/build ./public/build
 # Create empty sqlite file to prevent database missing errors during build
 RUN touch database/database.sqlite
 
-# Install production composer dependencies (skipping scripts until runtime)
+# Install production composer dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
+# Make entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan storage:link ; php artisan migrate --force ; php artisan db:seed --force ; php artisan config:cache ; php artisan route:cache ; php artisan view:cache ; php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+ENTRYPOINT ["/app/entrypoint.sh"]
