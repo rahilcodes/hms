@@ -1,0 +1,17 @@
+<?php
+
+use App\Models\SiteSetting;
+use Illuminate\Support\Facades\Cache;
+
+if (! function_exists('setting')) {
+    function setting(string $key, $default = null)
+    {
+        return Cache::rememberForever(
+            'site_setting_' . $key,
+            function () use ($key, $default) {
+                return SiteSetting::where('key', $key)->value('value') ?? $default;
+            }
+        );
+    }
+}
+

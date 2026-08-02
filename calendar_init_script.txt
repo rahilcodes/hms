@@ -1,0 +1,51 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const unavailableDates = @json($unavailableDates ?? []);
+    
+    const checkInInput = document.querySelector('input[name="check_in"]');
+    const checkOutInput = document.querySelector('input[name="check_out"]');
+    
+    if (!checkInInput || !checkOutInput) return;
+    
+    // Check-in calendar
+    const checkInPicker = flatpickr(checkInInput, {
+        minDate: 'today',
+        maxDate: new Date().fp_incr(180),
+        dateFormat: 'Y-m-d',
+        disable: unavailableDates,
+        onChange: function(selectedDates) {
+            if (selectedDates.length > 0) {
+                const minCheckOut = new Date(selectedDates[0]);
+                minCheckOut.setDate(minCheckOut.getDate() + 1);
+                checkOutPicker.set('minDate', minCheckOut);
+            }
+        },
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const dateStr = dayElem.dateObj.toISOString().split('T')[0];
+            if (unavailableDates.includes(dateStr)) {
+                dayElem.className += ' flatpickr-disabled-custom';
+                const indicator = document.createElement('span');
+                indicator.className = 'blocked-indicator';
+                dayElem.appendChild(indicator);
+            }
+        }
+    });
+    
+    // Check-out calendar
+    const checkOutPicker = flatpickr(checkOutInput, {
+        minDate: new Date().fp_incr(1),
+        maxDate: new Date().fp_incr(180),
+        dateFormat: 'Y-m-d',
+        disable: unavailableDates,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const dateStr = dayElem.dateObj.toISOString().split('T')[0];
+            if (unavailableDates.includes(dateStr)) {
+                dayElem.className += ' flatpickr-disabled-custom';
+                const indicator = document.createElement('span');
+                indicator.className = 'blocked-indicator';
+                dayElem.appendChild(indicator);
+            }
+        }
+    });
+});
+</script>
