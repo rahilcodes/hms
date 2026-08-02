@@ -9,6 +9,11 @@ RUN npm run build
 # Stage 2: Production PHP Runtime
 FROM php:8.2-cli-alpine
 
+# Default Application Key Fallback
+ENV APP_KEY=base64:vmH0jqbdociduQFtCG/gwFM8FaEP8ItA1yduq7wNB+U=
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+
 # Install system dependencies & PHP extensions
 RUN apk add --no-cache \
     postgresql-dev \
