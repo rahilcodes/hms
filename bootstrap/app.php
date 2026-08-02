@@ -34,6 +34,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $e, \Illuminate\Http\Request $request) {
+            if (config('app.debug')) {
+                return null;
+            }
             if ($e instanceof \Exception && !$request->expectsJson() && app()->environment('production')) {
                 return response()->view('errors.concierge', [], 500);
             }

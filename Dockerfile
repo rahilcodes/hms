@@ -40,4 +40,4 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-script
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan package:discover --ansi && php artisan storage:link || true && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+CMD ["sh", "-c", "php artisan package:discover --ansi && php artisan storage:link || true && php artisan migrate --force && php artisan db:seed --force || true && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
